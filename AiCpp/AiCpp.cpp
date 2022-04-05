@@ -26,11 +26,11 @@ int main()
 	State base = State("Idle");
 	State next = State("Run");
 	BoolCondition* condition = new BoolCondition(&value); //Si 6 idle passe à run
-	//NotContidion* dnc = new NotContidion(*condition);	//Si autre que 6 passe à idle
+	NotContidion* dnc = new NotContidion(*condition);	//Si autre que 6 passe à idle
 	
 
 	base.LinkStateToOther(&next, condition);
-	//next.LinkStateToOther(&base, dnc);
+	next.LinkStateToOther(&base, dnc);
 
 	machineTest.AddState(base);
 	machineTest.AddState(next);
@@ -49,7 +49,8 @@ int main()
 		Update();
 
 		std::cin >> val;
-		value = val;
+		if (val == 0) value = false;
+		if (val ==1) value = true;
 
 	}
 }

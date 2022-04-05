@@ -41,7 +41,8 @@ public:
 
 	virtual bool IsTriggered()
 	{
-		return value;
+		std::cout << *value << std::endl;
+		return *value;
 	};
 private:
 	bool* value{ nullptr };
