@@ -18,6 +18,7 @@ public:
 	void Update();
 
 	void AddState(State newState);
+	void AddStates(vector<State> newStates);
 
 	State GetCurrentState() { return currentState; };
 

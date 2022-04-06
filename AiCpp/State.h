@@ -50,6 +50,12 @@ public:
 		return false;
 	}
 
+	bool operator==(const std::string& other)
+	{
+		if (this->stateName == other) return true;
+		return false;
+	}
+
 private:
 	std::string stateName;
 

@@ -1,16 +1,31 @@
 #include "State.h"
 
+
+//-------------------------------------
 void State::ExecuteActions()
 {
+    for (Action action : actions)
+    {
+        action.Execute();
+    }
 }
 
 void State::ExecuteEntryActions()
 {
+    for (Action action : entryActions)
+    {
+        action.Execute();
+    }
 }
 
 void State::ExecuteExitActions()
 {
+    for (Action action : exitActions)
+    {
+        action.Execute();
+    }
 }
+//--------------
 
 vector<Transition*> State::GetTransitions()
 {
@@ -44,14 +59,19 @@ void State::SetExitActions(vector<Action> newExitActions)
 
 void State::AddAction(Action newAction)
 {
+    actions.push_back(newAction);
+
 }
 
 void State::AddEntryAction(Action newEntryAction)
 {
+    entryActions.push_back(newEntryAction);
 }
 
 void State::AddExitAction(Action newExitAction)
 {
+    exitActions.push_back(newExitAction);
+
 }
 
 void State::SetTransitions(vector<Transition*> newTransitions)

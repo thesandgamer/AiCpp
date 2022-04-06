@@ -18,46 +18,61 @@ void Update();
 
 StateMachine machineTest;
 
+void Run()
+{
+	std:cout << "The player is enter in running" << std::endl;
+}
+
 
 int main()
 {
-	bool value = false;
+	bool isRunning = false;
+	bool isAttacking = false;
 
-	State base = State("Idle");
-	State next = State("Run");
-	BoolCondition* condition = new BoolCondition(&value); //Si 6 idle passe à run
-	NotContidion* dnc = new NotContidion(*condition);	//Si autre que 6 passe à idle
+	BoolCondition* runningCnd = new BoolCondition(&isRunning); //Si 6 idle passe à run
+	NotContidion* notRunningCnd = new NotContidion(runningCnd);	//Si autre que 6 passe à idle
+
+	Action runningAct = Action(&Run);
+
+	State idle = State("Idle");
+	State run = State("Run");
+	State attack = State("Attack");
+
+	run.AddEntryAction(runningAct);
+
+
 	
 
-	base.LinkStateToOther(&next, condition);
-	next.LinkStateToOther(&base, dnc);
+	idle.LinkStateToOther(&run, runningCnd);
+	run.LinkStateToOther(&idle, notRunningCnd);
 
-	machineTest.AddState(base);
-	machineTest.AddState(next);
+
+	machineTest.AddStates({ idle,run,attack });
 
 	machineTest.StartMachine();
 
 
 	cout << "" << endl;
 
-	int val;
 
 
 	while (true)    // Detect window close button or ESC key
 	{
 		// Update
 		Update();
-
-		std::cin >> val;
-		if (val == 0) value = false;
-		if (val ==1) value = true;
+		
+		std::cout << "Want to Run? ";
+		std::cin >> isRunning;
+		std::cout << std::endl;
 
 	}
 }
 
 void Update()
 {
+
 	machineTest.Update();
-	cout << machineTest.GetCurrentState().GetStateName() << endl;
+	cout << "====" << machineTest.GetCurrentState().GetStateName() << "====" << endl;
+
 }
 

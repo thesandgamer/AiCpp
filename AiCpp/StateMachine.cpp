@@ -48,3 +48,8 @@ void StateMachine::AddState(State newState)
 {
 	states.push_back(newState);
 }
+
+void StateMachine::AddStates(vector<State> newStates)
+{
+	states.insert(states.end(), newStates.begin(), newStates.end());
+}

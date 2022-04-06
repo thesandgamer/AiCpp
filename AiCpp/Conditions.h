@@ -19,7 +19,7 @@ public:
 
 	virtual bool IsTriggered()
 	{
-		std::cout << *valueToCheck << std::endl;
+		//std::cout << *valueToCheck << std::endl;
 		if (minValue< *valueToCheck && *valueToCheck < maxValue)
 		{
 			return true;
@@ -41,7 +41,7 @@ public:
 
 	virtual bool IsTriggered()
 	{
-		std::cout << *value << std::endl;
+		//std::cout << *value << std::endl;
 		return *value;
 	};
 private:
@@ -86,17 +86,16 @@ private:
 class NotContidion : public Condition
 {
 public:
-	NotContidion(Condition conditionA) : condA(conditionA)
+	NotContidion(Condition* conditionA) : condA(conditionA)
 	{};
 
 	virtual bool IsTriggered()
 	{
-		return not condA.IsTriggered();
+		return not condA->IsTriggered();
 	};
 
 private:
-	Condition condA;
-	Condition condB;
+	Condition* condA;
 
 };
 //----------------------------------------------
