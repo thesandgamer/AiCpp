@@ -11,23 +11,73 @@ public:
 	};
 };
 
+enum class FloatConditionTypes
+{
+	superior,
+	inferior,
+	superior_equal,
+	inferior_equal,
+	between,
+
+};
+
 class FloatCondition : public Condition
 {
 public:
-	FloatCondition(float minValueP, float maxValueP, float* valueToCheckP) : minValue(minValueP), maxValue(maxValueP), valueToCheck( valueToCheckP)
+	FloatCondition(FloatConditionTypes typeP,float minValueP, float maxValueP, float* valueToCheckP) : type(typeP), minValue(minValueP), maxValue(maxValueP), valueToCheck( valueToCheckP)
 	{};
 
 	virtual bool IsTriggered()
 	{
-		//std::cout << *valueToCheck << std::endl;
-		if (minValue< *valueToCheck && *valueToCheck < maxValue)
+		switch (type)
 		{
-			return true;
+		case FloatConditionTypes::superior:
+			if (minValue < *valueToCheck)
+			{
+				return true;
+			}
+			return false;
+			break;
+		case FloatConditionTypes::inferior:
+			if (*valueToCheck < maxValue)
+			{
+				return true;
+			}
+			return false;
+
+			break;
+		case FloatConditionTypes::superior_equal:
+			if (minValue <= *valueToCheck)
+			{
+				return true;
+			}
+			return false;
+			break;
+		case FloatConditionTypes::inferior_equal:
+			if (*valueToCheck <= maxValue)
+			{
+				return true;
+			}
+			return false;
+			break;
+		case FloatConditionTypes::between:
+			if (minValue < *valueToCheck && *valueToCheck < maxValue)
+			{
+				return true;
+			}
+			return false;
+
+			break;
+		default:
+			break;
 		}
-		return false;
+
+		//std::cout << *valueToCheck << std::endl;
+
 	};
 
 private:
+	FloatConditionTypes type;
 	float minValue;
 	float maxValue;
 	float* valueToCheck = nullptr;

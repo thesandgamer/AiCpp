@@ -39,7 +39,7 @@ void StateMachine::Update()
 	}
 	else
 	{
-		currentState.ExecuteExitActions();
+		currentState.ExecuteActions();
 	}
 
 }
